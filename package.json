@@ -1,0 +1,20 @@
+{
+  "name": "odin-binary-search-trees",
+  "version": "1.0.0",
+  "description": "An implementation of a balanced binary search tree in JavaScript.",
+  "homepage": "https://github.com/SpeakBoy/odin-binary-search-trees#readme",
+  "bugs": {
+    "url": "https://github.com/SpeakBoy/odin-binary-search-trees/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpeakBoy/odin-binary-search-trees.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "tree.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

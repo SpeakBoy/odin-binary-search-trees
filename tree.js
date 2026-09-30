@@ -139,6 +139,63 @@ class Tree {
             }
         }
     }
+
+    // Accepts a callback function as its parameter.
+    // Should traverse the tree in depth-first inorder
+    // and call the callback on each value it traverses.
+    inOrderForEach(callback) {
+        if (typeof callback !== "function") {
+            throw new Error("callback must be a function!");
+        }
+        this.#inOrderForEachRec(callback, this.root);
+    }
+
+    #inOrderForEachRec(callback, node) {
+        if (node === null) {
+            return;
+        }
+        this.#inOrderForEachRec(callback, node.left);
+        callback(node.data);
+        this.#inOrderForEachRec(callback, node.right);
+    }
+
+    // Accepts a callback function as its parameter.
+    // Should traverse the tree in depth-first preorder
+    // and call the callback on each value it traverses.
+    preOrderForEach(callback) {
+        if (typeof callback !== "function") {
+            throw new Error("callback must be a function!");
+        }
+        this.#preOrderForEachRec(callback, this.root);
+    }
+
+    #preOrderForEachRec(callback, node) {
+        if (node === null) {
+            return;
+        }
+        callback(node.data);
+        this.#preOrderForEachRec(callback, node.left);
+        this.#preOrderForEachRec(callback, node.right);
+    }
+
+    // Accepts a callback function as its parameter.
+    // Should traverse the tree in depth-first postorder
+    // and call the callback on each value it traverses.
+    postOrderForEach(callback) {
+        if (typeof callback !== "function") {
+            throw new Error("callback must be a function!");
+        }
+        this.#postOrderForEachRec(callback, this.root);
+    }
+
+    #postOrderForEachRec(callback, node) {
+        if (node === null) {
+            return;
+        }
+        this.#postOrderForEachRec(callback, node.left);
+        this.#postOrderForEachRec(callback, node.right);
+        callback(node.data);
+    }
 }
 
 export default Tree;
