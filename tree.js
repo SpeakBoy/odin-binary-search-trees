@@ -196,6 +196,37 @@ class Tree {
         this.#postOrderForEachRec(callback, node.right);
         callback(node.data);
     }
+
+    // Returns the height of the node containing the given value.
+    height(value) {
+        if (!this.includes(value)) {
+            return undefined;
+        }
+        return this.#heightRec(value, this.root);
+    }
+
+    #heightRec(value, node, valueFound = false) {
+        if (!valueFound) {
+            if (node.data === value) {
+                if (node.left === null && node.right === null) {
+                    return 0;
+                }
+                return 1 + Math.max(this.#heightRec(value, node.left, true), this.#heightRec(value, node.right, true));
+            }
+            if (node.data > value) {
+                return this.#heightRec(value, node.left);
+            }
+            if (node.data < value) {
+                return this.#heightRec(value, node.right);
+            }
+        }
+        if (node === null || (node.left === null && node.right === null)) {
+            return 0;
+        }
+        return 1 + Math.max(this.#heightRec(value, node.left, true), this.#heightRec(value, node.right, true));
+    }
 }
 
 export default Tree;
+
+const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
