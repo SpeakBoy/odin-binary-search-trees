@@ -22,6 +22,16 @@ class Tree {
 
         return root;
     }
+
+    static prettyPrint(node, prefix = "", isLeft = true) {
+        if (node === null || node === undefined) {
+            return;
+        }
+
+        this.prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+        console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
+        this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+    } 
 }
 
 export default Tree;
