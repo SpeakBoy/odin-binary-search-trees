@@ -8,8 +8,9 @@ class Tree {
         this.root = this.#buildTree([...new Set(arr.toSorted((a, b) => a - b))]);
     }
 
+    // Takes an array of numbers and turns it into a balanced binary tree
+    // full of Node objects appropriately placed.
     #buildTree(arr, start = 0, end = arr.length - 1) {
-        console.log(arr);
         if (start > end) {
             return null;
         }
@@ -31,7 +32,22 @@ class Tree {
         this.prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
         console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
         this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
-    } 
+    }
+
+    includes(value) {
+        return this.#includesRec(value, this.root);
+    }
+
+    #includesRec(value, node) {
+        if (node === null) {
+            return false;
+        }
+        if (node.data === value) {
+            return true;
+        }
+
+        return this.#includesRec(value, node.left) || this.#includesRec(value, node.right);
+    }
 }
 
 export default Tree;
