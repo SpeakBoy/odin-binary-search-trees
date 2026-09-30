@@ -244,6 +244,34 @@ class Tree {
             return 1 + this.#depthRec(value, node.right);
         }
     }
+
+    isBalanced() {
+        return this.#isBalancedRec(this.root);
+    }
+
+    #isBalancedRec(node) {
+        if (node === null 
+            || (node.left === null && node.right === null)) {
+            return true;
+        }
+        if (node.left !== null && node.right === null) {
+            // Since the height of an empty subtree is -1,
+            // we subtract -1 to account for this when checking
+            // the height differences when one of the subtrees
+            // is empty.
+            return this.height(node.left.data) - (-1) <= 1
+                    && this.#isBalancedRec(node.left);
+        }
+        if (node.left === null && node.right !== null) {
+            return this.height(node.right.data) - (-1) <= 1
+                    && this.#isBalancedRec(node.right);
+        }
+        if (node.left !== null && node.right !== null) {
+            return Math.abs(this.height(node.left.data) - this.height(node.right.data)) <= 1
+                    && this.#isBalancedRec(node.left)
+                    && this.#isBalancedRec(node.right);
+        }
+    }
 }
 
 export default Tree;
