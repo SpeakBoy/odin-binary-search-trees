@@ -272,8 +272,18 @@ class Tree {
                     && this.#isBalancedRec(node.right);
         }
     }
+
+    rebalance() {
+        const treeArr = this.#convertToArr(this.root);
+        this.root = this.#buildTree(treeArr.toSorted((a, b) => a - b));
+    }
+
+    #convertToArr(node) {
+        if (node === null) {
+            return [];
+        }
+        return [node.data, ...this.#convertToArr(node.left), ...this.#convertToArr(node.right)];
+    }
 }
 
 export default Tree;
-
-const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
