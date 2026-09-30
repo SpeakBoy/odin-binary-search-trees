@@ -225,6 +225,25 @@ class Tree {
         }
         return 1 + Math.max(this.#heightRec(value, node.left, true), this.#heightRec(value, node.right, true));
     }
+
+    depth(value) {
+        if (!this.includes(value)) {
+            return undefined;
+        }
+        return this.#depthRec(value, this.root);
+    }
+
+    #depthRec(value, node) {
+        if (node.data === value) {
+            return 0;
+        }
+        if (node.data > value) {
+            return 1 + this.#depthRec(value, node.left);
+        }
+        if (node.data < value) {
+            return 1 + this.#depthRec(value, node.right);
+        }
+    }
 }
 
 export default Tree;
