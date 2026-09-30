@@ -34,6 +34,8 @@ class Tree {
         this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
     }
 
+    // Accepts a value and returns true if the given value is in the tree.
+    // If the value isn't in the tree, it should return false.
     includes(value) {
         return this.#includesRec(value, this.root);
     }
@@ -47,6 +49,26 @@ class Tree {
         }
 
         return this.#includesRec(value, node.left) || this.#includesRec(value, node.right);
+    }
+
+    // Accepts a value and inserts a new node with that value in the tree.
+    insert(value) {
+        if (!this.includes(value)) {
+            this.root = this.#insertRec(value, this.root);
+        }
+    }
+
+    #insertRec(value, node) {
+        if (node === null) {
+            return new Node(value);
+        }
+        if (node.data > value) {
+            node.left = this.#insertRec(value, node.left);
+        }
+        if (node.data < value) {
+            node.right = this.#insertRec(value, node.right);
+        }
+        return node;
     }
 }
 
