@@ -70,6 +70,51 @@ class Tree {
         }
         return node;
     }
+
+    // Accepts a value and removes it from the tree.
+    deleteItem(value) {
+        if(this.includes(value)) {
+            this.root = this.#deleteItemRec(value, this.root);
+        }
+    }
+
+    #deleteItemRec(value, node) {
+        if (node.data > value) {
+            node.left = this.#deleteItemRec(value, node.left);
+        }
+        if (node.data < value) {
+            node.right = this.#deleteItemRec(value, node.right);
+        }
+        if (node.data === value) {
+            // 0 children
+            if (node.left === null && node.right === null) {
+                return null;
+            }
+            // 1 child left side
+            if (node.left !== null && node.right === null) {
+                return node.left;
+            }
+            // 1 child right side
+            if (node.left === null && node.right !== null) {
+                return node.right;
+            }
+            // 2 children
+            if (node.left !== null && node.right !== null) {
+                const succ = this.#getSuccessor(node);
+                node.data = succ.data;
+                node.right = this.#deleteItemRec(succ.data, node.right);
+            } 
+        }
+        return node;
+    }
+    
+    #getSuccessor(node) {
+        node = node.right;
+        while (node !== null && node.left !== null) {
+            node = node.left;
+        }
+        return node;
+    }
 }
 
 export default Tree;
