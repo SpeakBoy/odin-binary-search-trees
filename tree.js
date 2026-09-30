@@ -115,6 +115,30 @@ class Tree {
         }
         return node;
     }
+
+    // Accepts a callback function as its parameter.
+    // Should traverse the tree in breadth-first level order
+    // and call the callback on each value it traverses.
+    levelOrderForEach(callback) {
+        if (typeof callback !== "function") {
+            throw new Error("callback must be a function!");
+        }
+        if (this.root === null) {
+            return;
+        }
+        const queue = [];
+        queue.push(this.root);
+        while (queue.length > 0) {
+            const curr = queue.shift();
+            callback(curr.data);
+            if (curr.left !== null) {
+                queue.push(curr.left);
+            }
+            if (curr.right !== null) {
+                queue.push(curr.right);
+            }
+        }
+    }
 }
 
 export default Tree;
